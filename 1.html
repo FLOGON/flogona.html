@@ -1,26 +1,80 @@
-<!DOCKTYPE html>
+<!DOCTYPE html>
 <html>
-<title>
-  <title>나에 대해서</title>
-  <meta charset="utf-8">
-</title>
-<body>
-  <h1><li style="color: rgb(255, 150, 255)"><strong><u>나</u></strong>(이동준)에 대해서</li></h1>
-  <li><a href="1.html">1)입학 전</a></li>
-  <li><a href="2.html">2)초등학교</a></li>
-  <li><a href="3.html">3)중학교</a></li>
-  <li><a href="4.html">4)고등학교</a></li>
-</body>
-<body>
-  <h2>1) 입학 전</h2>
-  <strong>
-  한자 : 李東俊
-  <br>생일 : 2003년 7월 6일 (음력 6월 7일)
-  <br>지역 : <a href="https://www.sd.go.kr/main/index.do" target="_blank">서울특별시 성동구</a>
-  <br>태어난 시각 : 18시 12분
-  <br>무게 : 3.6kg
-  <br>혈액형 : A(AO)형
-  <br>유치원 : 세상유치원 -> 율화유치원
-  </strong>
-  <br><img src="나.jpg" width="500">
-</body>
+  <head>
+    <meta charset="utf-8">
+    <title>
+        나에 대해서
+    </title>
+    <style>
+      #infant{
+        color: plum;
+        text-decoration: none;
+      }
+      #eschool{
+        color: plum;
+        text-decoration: none;
+      }
+      #mschool{
+        color: plum;
+        text-decoration: none;
+      }
+      #hschool{
+        color: plum;
+        text-decoration: none;
+      }
+      li {
+        list-style-type: none;
+      }
+      h1 {
+        font-size: 50px;
+        text-align: center;
+        border-bottom: 4px solid rgb(61, 61, 61);
+        margin: 0px;
+        padding: 20px;
+      }
+      ol {
+        font-size: 20px;
+        text-align: left;
+        border-right: 4px solid rgb(61, 61, 61);
+        width: 120px;
+        margin: 0px;
+        padding: 20px;
+        padding-left: 15px;
+      }
+      body {
+        margin: 0px;
+      }
+      #grid{
+        display: grid;
+        grid-template-columns: 200px 1fr;
+      }
+      #infomation{
+        padding-left: 5px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><li style="color : orange"><strong><u>나</u></strong>에 대해서</li></h1>
+    <div id="grid">
+      <ol>
+        <li><a href="1.html" id="infant">1)입학 전</a></li>
+        <li><a href="2.html" id="eschool">2)초등학교</a></li>
+        <li><a href="3.html" id="mschool">3)중학교</a></li>
+        <li><a href="4.html" id="hschool">4)고등학교</a></li>
+        <li><a href="5.html">4)연습장</a></li>
+      </ol>
+      <div id="infomation">
+        <h2>1) 입학 전</h2>
+        <strong>생일 : 2003년 7월 6일 (음력 6월 7일)
+        <br>한자 : 李東俊
+        <br>지역 : <a href="https://www.sd.go.kr/main/index.do" target="_blank">서울특별시 성동구</a>
+        <br>태어난 시각 : 18시 12분 
+        <br>무게 : 3.6kg
+        <br>혈액형 : A(AO)형
+        <br>유치원 : 세성유치원 -> 율화유치원
+        </strong>
+        <br><img src="나.jpg" width="500">
+      </div>
+    </div>
+  </body>
+</html>
