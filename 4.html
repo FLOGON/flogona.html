@@ -6,23 +6,29 @@
         나에 대해서
     </title>
     <style>
+      #title{
+        color: orange;
+      }
       #infant{
-        color: plum;
+        color: hotpink;
       }
       #eschool{
-        color: plum;
+        color: hotpink;
       }
       #mschool{
-        color: plum;
+        color: hotpink;
       }
       #hschool{
-        color: plum;
+        color: hotpink;
       }
       #practice{
-        color: plum;
+        color: hotpink;
       }
       li {
         list-style-type: none;
+      }
+      a {
+        text-decoration-line: none;
       }
       h1 {
         font-size: 50px;
@@ -53,7 +59,7 @@
     </style>
   </head>
   <body>
-    <h1><li style="color : orange"><strong><u>나</u></strong>에 대해서</li></h1>
+    <h1><li><a href="index.html" id="title">나에 대해서</a></li></h1>
     <div id="grid">
       <ol>
         <li><a href="1.html" id="infant">1)입학 전</a></li>
@@ -62,15 +68,30 @@
         <li><a href="4.html" id="hschool">4)고등학교</a></li>
         <li><a href="5.html" id="practice">5)연습장</a></li>
         <input id="night-day" type="button" value="night" onclick="
-          if(document.querySelector('#night-day').value === 'night'){
-            document.querySelector('body').style.backgroundColor = 'black';
-            document.querySelector('body').style.color = 'white';
-            document.querySelector('#night-day').value = 'day'
+          var target =  document.querySelector('body');
+          if(this.value === 'night'){
+            target.style.backgroundColor = 'black';
+            target.style.color = 'white';
+            this.value = 'day'
+            
+            var alist = document.querySelectorAll('a');
+            var i = 0;
+            while(i < alist.length){
+              alist[i].style.color = 'plum';
+              i = i + 1;
+            }
           }
           else{
-            document.querySelector('body').style.backgroundColor = 'white';
-            document.querySelector('body').style.color = 'black';
-            document.querySelector('#night-day').value = 'night'
+            target.style.backgroundColor = 'white';
+            target.style.color = 'black';
+            this.value = 'night'
+
+            var alist = document.querySelectorAll('a');
+            var i = 0;
+            while(i < alist.length){
+              alist[i].style.color = 'hotpink';
+              i = i + 1;
+            }
           }
         ">
       </ol>
