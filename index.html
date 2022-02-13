@@ -5,27 +5,30 @@
     <title>
         나에 대해서
     </title>
+    
+  </head>
+  <body>
     <style>
       #title{
-        color: black;
+        color: rgb(143, 52, 143);
       }
       #infant{
-        color: black;
+        color: rgb(143, 52, 143);
       }
       #eschool{
-        color: black;
+        color: rgb(143, 52, 143);
       }
       #mschool{
-        color: black;
+        color: rgb(143, 52, 143);
       }
       #hschool{
-        color: black;
+        color: rgb(143, 52, 143);
       }
       #university{
-        color: black;
+        color: rgb(143, 52, 143);
       }
       #practice{
-        color: black;
+        color: rgb(143, 52, 143);
       }
       li {
         list-style-type: none;
@@ -36,7 +39,7 @@
       h1 {
         font-size:10vw;
         text-align: center;
-        border-bottom: 4px solid rgb(61, 61, 61);
+        border-bottom: 1vw solid rgb(61, 61, 61);
         margin: 10vw;
         padding: 20px;
       }
@@ -45,19 +48,23 @@
         text-align: left;
         margin-left: 34vw;
       }
+      input{
+        size: 10vw;
+      }
       html{
-        background-image: url("건국대.jpg");
+        background-image: url("건국대2.png");
         background-size: 50vw;
         background-repeat: no-repeat;
         background-position-x: 25vw;
         background-position-y: 25vw;
       }
+      html::before{
+        opacity: 0.5;
+      };
       body {
         margin: 0px;
       }
     </style>
-  </head>
-  <body>
     <h1>
       <li><a href="index.html" id="title">나에 대해서</a></li>
     </h1>
@@ -67,9 +74,9 @@
       <li><a href="3.html" id="mschool">3)중학교</a></li>
       <li><a href="4.html" id="hschool">4)고등학교</a></li>
       <li><a href="5.html" id="university">5)대학교</a></li>
-        <li><a href="6.html" id="practice">6)연습장</a></li>
+      <li><a href="6.html" id="practice">6)연습장</a></li>
       <input id="night-day" type="button" value="night" onclick="
-          var target =  document.querySelector('body');
+          var target =  document.querySelector('html');
           if(this.value === 'night'){
             target.style.backgroundColor = 'black';
             target.style.color = 'white';
@@ -78,7 +85,7 @@
             var alist = document.querySelectorAll('a');
             var i = 0;
             while(i < alist.length){
-              alist[i].style.color = 'plum';
+              alist[i].style.color = 'hotpink';
               i = i + 1;
             }
           }
@@ -90,7 +97,7 @@
             var alist = document.querySelectorAll('a');
             var i = 0;
             while(i < alist.length){
-              alist[i].style.color = 'hotpink';
+              alist[i].style.color = 'rgb(143, 52, 143)';
               i = i + 1;
             }
           }
