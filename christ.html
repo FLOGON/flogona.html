@@ -1,49 +1,103 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>3D 회전 별 트리</title>
-    <link rel="stylesheet" href="style.css">
-    
-    <style>
-        :root {
-            --n-stars: 30;
-        }
-    </style>
+<meta charset="UTF-8" />
+<title>Rotating Star Tree</title>
+<style>
+:root{
+  --n-stars: 220;
+}
+
+*{box-sizing:border-box;}
+
+body{
+  margin:0;
+  height:100vh;
+  display:grid;
+  place-content:center;
+  background:#000014;
+  overflow:hidden;
+  perspective:35em;
+}
+
+.scene{
+  position:relative;
+  width:40vmin;
+  height:60vmin;
+  transform-style:preserve-3d;
+}
+
+.tree{
+  position:absolute;
+  inset:0;
+  transform-style:preserve-3d;
+  animation: spin 14s linear infinite;
+}
+
+.star{
+  position:absolute;
+  left:50%;
+  bottom:0;
+  width:0.35vmin;
+  height:0.35vmin;
+  background:white;
+  border-radius:50%;
+  transform-style:preserve-3d;
+  box-shadow:
+    0 0 0.4vmin white,
+    0 0 0.9vmin #cfffff;
+  animation:
+    rise 4s ease-out forwards,
+    twinkle 2.5s ease-in-out infinite;
+}
+
+/* tree shape */
+.star{
+  --i: 0;
+  --h: calc(var(--i) / var(--n-stars));
+  --spread: calc((1 - var(--h)) * 16vmin);
+  --angle: calc(var(--i) * 137.5deg);
+  --y: calc(var(--h) * 55vmin);
+
+  transform:
+    translateX(calc(cos(var(--angle)) * var(--spread)))
+    translateZ(calc(sin(var(--angle)) * var(--spread)))
+    translateY(calc(-1 * var(--y)));
+}
+
+@keyframes spin{
+  from{ transform: rotateY(0deg); }
+  to{ transform: rotateY(360deg); }
+}
+
+@keyframes rise{
+  from{ opacity:0; filter:blur(2px); }
+  to{ opacity:1; filter:blur(0); }
+}
+
+@keyframes twinkle{
+  0%,100%{ opacity:0.6; }
+  50%{ opacity:1; }
+}
+</style>
 </head>
 <body>
+  <div class="scene">
     <div class="tree">
-        <div class="a3d" style="--i: 1"></div>
-        <div class="a3d" style="--i: 2"></div>
-        <div class="a3d" style="--i: 3"></div>
-        <div class="a3d" style="--i: 4"></div>
-        <div class="a3d" style="--i: 5"></div>
-        <div class="a3d" style="--i: 6"></div>
-        <div class="a3d" style="--i: 7"></div>
-        <div class="a3d" style="--i: 8"></div>
-        <div class="a3d" style="--i: 9"></div>
-        <div class="a3d" style="--i: 10"></div>
-        <div class="a3d" style="--i: 11"></div>
-        <div class="a3d" style="--i: 12"></div>
-        <div class="a3d" style="--i: 13"></div>
-        <div class="a3d" style="--i: 14"></div>
-        <div class="a3d" style="--i: 15"></div>
-        <div class="a3d" style="--i: 16"></div>
-        <div class="a3d" style="--i: 17"></div>
-        <div class="a3d" style="--i: 18"></div>
-        <div class="a3d" style="--i: 19"></div>
-        <div class="a3d" style="--i: 20"></div>
-        <div class="a3d" style="--i: 21"></div>
-        <div class="a3d" style="--i: 22"></div>
-        <div class="a3d" style="--i: 23"></div>
-        <div class="a3d" style="--i: 24"></div>
-        <div class="a3d" style="--i: 25"></div>
-        <div class="a3d" style="--i: 26"></div>
-        <div class="a3d" style="--i: 27"></div>
-        <div class="a3d" style="--i: 28"></div>
-        <div class="a3d" style="--i: 29"></div>
-        <div class="a3d" style="--i: 30"></div>
+      <!-- stars injected by CSS-only trick -->
+      <script>
+        const tree = document.currentScript.parentElement;
+        const N = 220;
+        document.documentElement.style.setProperty('--n-stars', N);
+        for(let i=0;i<N;i++){
+          const s = document.createElement('span');
+          s.className = 'star';
+          s.style.setProperty('--i', i);
+          s.style.animationDelay = (i * 0.015) + 's';
+          tree.appendChild(s);
+        }
+      </script>
     </div>
+  </div>
 </body>
 </html>
