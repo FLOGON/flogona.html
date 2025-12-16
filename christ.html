@@ -2,131 +2,71 @@
 <html lang="ko">
 <head>
 <meta charset="UTF-8" />
-<title>Star Tree – Working Version</title>
+<title>Star Tree – DEBUG SAFE</title>
 <style>
-* { box-sizing: border-box; }
-
 body{
   margin:0;
-  width:100vw;
   height:100vh;
   display:flex;
   align-items:center;
   justify-content:center;
-  background:#000014;
-  overflow:hidden;
-  perspective:800px;
-}
-
-.scene{
-  width:300px;
-  height:500px;
-  position:relative;
-  transform-style:preserve-3d;
+  background:black;
 }
 
 .tree{
-  position:absolute;
-  inset:0;
-  transform-style:preserve-3d;
-  animation: spin 16s linear infinite;
+  position:relative;
+  width:300px;
+  height:500px;
+  animation: spin 12s linear infinite;
 }
 
 .star{
   position:absolute;
-  left:50%;
   bottom:0;
+  left:50%;
   width:4px;
   height:4px;
   background:white;
   border-radius:50%;
-  box-shadow:
-    0 0 6px white,
-    0 0 12px #cfffff;
-  opacity:0;
-
-  transform:
-    rotateZ(var(--angle))
-    translateX(var(--radius))
-    translateY(calc(-1 * var(--y)));
-
-  animation:
-    stack 0.6s ease-out forwards,
-    twinkle 2.5s ease-in-out infinite;
+  transform-origin: 0 0;
 }
 
 .top-star{
-  width:10px;
-  height:10px;
-  left:50%;
+  width:12px;
+  height:12px;
   bottom:100%;
-  box-shadow:
-    0 0 12px #fff,
-    0 0 24px #ffffcc;
-  opacity:1;
-  transform:translateX(-50%);
+  background:yellow;
 }
 
 @keyframes spin{
-  from { transform: rotateY(0deg); }
-  to   { transform: rotateY(360deg); }
-}
-
-@keyframes stack{
-  from{
-    opacity:0;
-    transform:
-      rotateZ(var(--angle))
-      translateX(var(--radius))
-      translateY(20px);
-    filter:blur(3px);
-  }
-  to{
-    opacity:1;
-    transform:
-      rotateZ(var(--angle))
-      translateX(var(--radius))
-      translateY(calc(-1 * var(--y)));
-    filter:blur(0);
-  }
-}
-
-@keyframes twinkle{
-  0%,100%{ opacity:0.6; }
-  50%{ opacity:1; }
+  from{ transform:rotate(0deg); }
+  to{ transform:rotate(360deg); }
 }
 </style>
 </head>
 <body>
 
-<div class="scene">
-  <div class="tree" id="tree"></div>
-</div>
+<div class="tree" id="tree"></div>
 
 <script>
+// 🔥 디버그용: 이게 안 보이면 JS 자체가 안 도는 상태
+console.log('JS RUNNING');
+
 const tree = document.getElementById('tree');
-const N = 220;
 
-for(let i = 0; i < N; i++){
-  const star = document.createElement('div');
-  star.className = 'star';
+for(let i=0;i<120;i++){
+  const s = document.createElement('div');
+  s.className = 'star';
 
-  const h = i / N;              // height ratio
-  const radius = (1 - h) * 120; // tree width
-  const angle = i * 137.5;      // golden angle
+  const h = i / 120;
+  const r = (1 - h) * 120;
+  const angle = i * 12;
 
-  star.style.setProperty('--y', `${h * 460}px`);
-  star.style.setProperty('--radius', `${radius}px`);
-  star.style.setProperty('--angle', `${angle}deg`);
+  s.style.transform = `rotate(${angle}deg) translateX(${r}px) translateY(${-h*460}px)`;
 
-  // 층별로 등장
-  const delay = Math.floor(i / 12) * 0.15;
-  star.style.animationDelay = `${delay}s`;
-
-  tree.appendChild(star);
+  tree.appendChild(s);
 }
 
-// top star
 const top = document.createElement('div');
 top.className = 'star top-star';
 tree.appendChild(top);
