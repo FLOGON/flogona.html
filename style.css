@@ -3,12 +3,9 @@
 /* =================================== */
 
 body {
-    /* 릴스 배경색과 유사하게 설정 */
     background: #000014; 
-    /* 트리를 중앙에 배치 */
     display: grid;
     place-content: center;
-    /* 스크롤바 방지 */
     overflow-x: hidden;
     margin: 0;
     height: 100vh;
@@ -26,22 +23,21 @@ div {
     width: 0;
     height: 0;
     position: relative;
-    /* 트리를 3D 공간에서 Y축 중심으로 회전시킵니다. */
-    animation: roty 12s linear infinite reverse;
+    /* --- 트리를 Y축 중심으로 회전시키는 애니메이션 --- */
+    animation: roty-y 12s linear infinite reverse; 
 }
 
 /* =================================== */
-/* 2. 별 모양 및 3D 위치 계산 */
+/* 2. 별 모양 및 3D 위치 계산 (수직 정렬을 위해 수정됨) */
 /* =================================== */
 
 .a3d {
-    /* 변수 계산 (릴스 코드에서 추론) */
-    --m: calc(.5*(var(--n-stars) - 1)); /* 트리의 크기/반지름 관련 변수 */
-    --t: calc(0.3333*var(--n-stars)*0.1s); /* 애니메이션 지연 시간 변수 */
+    --m: calc(.5*(var(--n-stars) - 1)); 
+    --t: calc(0.3333*var(--n-stars)*0.1s); 
 
     /* 별의 기본 스타일 */
     position: absolute;
-    width: 2em; /* 별의 크기 */
+    width: 2em; 
     height: 2em;
     background: #fff;
     
@@ -50,26 +46,29 @@ div {
         50% 0%, 60% 35%, 100% 35%, 65% 60%, 80% 100%, 50% 75%, 20% 100%, 35% 60%, 0% 35%, 40% 35%
     );
 
-    /* 별이 빛나는 효과 */
+    /* 빛 효과 */
     filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.7)) drop-shadow(0 0 10px #70e3ff);
     
-    /* 3D 위치 변환 (원뿔/트리 형태 배치) */
+    /* ***** 3D 변환 순서 수정: 트리를 수직으로 세우는 핵심 ***** */
     transform: 
-        /* Y축 회전: 별들을 원형으로 배치 */
+        /* 1. Y축 회전: 별들을 원형으로 배치 */
         rotateY(calc(var(--i) * 360deg / var(--n-stars)))
-        /* Z축 이동: 원뿔의 반지름을 결정 (트리의 폭) */
+        
+        /* 2. Z축 이동: 원뿔의 반지름을 결정 (트리의 폭) */
         translateZ(calc(var(--m) * 0.7vmin))
-        /* X축 회전: 별이 정면을 향하도록 조정 */
+        
+        /* 3. X축 회전: 별을 원뿔 중앙을 향하도록 기울입니다. (트리의 옆면 각도) */
         rotateX(90deg)
-        /* Y축 이동: 별을 위아래로 쌓아 트리 높이를 만듦 (i가 클수록 위로) */
+        
+        /* 4. Y축 이동: 별을 위아래로 쌓아 트리 높이를 만듭니다. (i가 클수록 위로) */
         translateY(calc(var(--i) * 0.7em - 10em))
-        /* 별 자체를 약간 회전시켜 모양을 다양하게 함 */
+        
+        /* 5. 별 자체의 회전 (선택 사항) */
         rotate(calc(var(--i) * 10deg));
         
-    /* 애니메이션 설정 (릴스 코드와 유사) */
-    /* 개별 별의 애니메이션 지연 시간을 설정하여 트리가 층별로 회전하는 듯한 효과를 만듭니다. */
-    animation: roty 12s linear var(--t) infinite reverse;
-    animation-delay: calc(var(--i) * -0.1s); /* 별 인덱스에 따라 지연 시간 설정 */
+    /* 개별 별의 애니메이션 (반짝임이나 자체 회전 효과를 위한 애니메이션) */
+    /* animation: roty 12s linear var(--t) infinite reverse;
+    animation-delay: calc(var(--i) * -0.1s); */ 
 }
 
 
@@ -77,9 +76,9 @@ div {
 /* 3. 애니메이션 키프레임 정의 */
 /* =================================== */
 
-@keyframes roty {
+/* 트리를 Y축(수직축) 중심으로 회전시키는 애니메이션 */
+@keyframes roty-y {
     to {
-        /* Y축을 중심으로 360도 회전 */
         transform: rotateY(360deg);
     }
 }
