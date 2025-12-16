@@ -1,91 +1,80 @@
 /* =================================== */
-/* 1. 이미지에서 제공된 부분 */
+/* 1. 기본 설정 및 3D 환경 정의 */
 /* =================================== */
 
 body {
+    /* 릴스 배경색과 유사하게 설정 */
+    background: #000014; 
+    /* 트리를 중앙에 배치 */
+    display: grid;
     place-content: center;
+    /* 스크롤바 방지 */
     overflow-x: hidden;
     margin: 0;
     height: 100vh;
-    perspective: 35em;
-    background: #000014;
-    display: grid; /* place-content: center가 작동하도록 추가 */
+    /* 원근감(Perspective) 설정 - 3D 깊이감을 결정 */
+    perspective: 35em; 
 }
 
+/* 모든 3D 요소에 필요 */
 div {
     transform-style: preserve-3d;
 }
 
-.a3d {
-    --m: calc(.5*(var(--n-stars) - 1));
-    --t: calc(0.3333*var(--n-stars)*0.1s);
-    animation: roty 12s linear var(--t) infinite reverse;
-}
-
-/* =================================== */
-/* 2. 누락된 3D 트리의 모양 및 위치 지정 */
-/* =================================== */
-
+/* 트리를 감싸는 컨테이너 */
 .tree {
-    /* 트리를 감싸는 컨테이너 */
     width: 0;
     height: 0;
     position: relative;
-    /* .a3d의 애니메이션 지연 시간을 활용하여 전체 트리가 회전하는 효과를 만듭니다. */
-}
-
-.a3d {
-    /* 모든 별의 기준 위치 */
-    position: absolute;
-    width: 0.25em; /* 별의 기본 크기 */
-    height: 0.25em;
-    background: #fff;
-    border-radius: 50%;
-    
-    /* 별의 3D 위치를 계산하여 원뿔(트리) 형태로 배열합니다. */
-    /* var(--i)는 HTML에서 설정한 1부터 30까지의 인덱스입니다. */
-    transform: 
-        /* Y축 회전을 통해 원형으로 배치 */
-        rotateY(calc(var(--i) * 360deg / var(--n-stars)))
-        /* Z축 이동을 통해 원뿔의 반지름을 조절 (트리의 폭 결정) */
-        translateZ(calc(var(--m) * 0.7vmin))
-        /* X축 회전을 통해 별을 정면으로 향하게 함 */
-        rotateX(90deg)
-        /* Y축 이동을 통해 별을 위아래로 쌓아 트리 높이를 만듦 (i가 클수록 위로) */
-        translateY(calc(var(--i) * 0.7em - 10em))
-        /* 별 자체를 약간 회전시켜 반짝이는 모양을 만듦 */
-        rotate(calc(var(--i) * 10deg)); 
-        
-    /* 별이 빛나는 효과 */
-    box-shadow: 0 0 5px 2px rgba(255, 255, 255, 0.7);
-}
-
-/* 별 모양을 십자 형태로 만듭니다. */
-.a3d::before, .a3d::after {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    background: #fff;
-    transform: translate(-50%, -50%);
-    box-shadow: inherit;
-    border-radius: inherit;
-}
-
-.a3d::before {
-    width: 300%;
-    height: 100%;
-    transform: translate(-50%, -50%) rotate(45deg);
-}
-
-.a3d::after {
-    width: 100%;
-    height: 300%;
-    transform: translate(-50%, -50%) rotate(45deg);
+    /* 트리를 3D 공간에서 Y축 중심으로 회전시킵니다. */
+    animation: roty 12s linear infinite reverse;
 }
 
 /* =================================== */
-/* 3. 누락된 애니메이션 키프레임 정의 */
+/* 2. 별 모양 및 3D 위치 계산 */
+/* =================================== */
+
+.a3d {
+    /* 변수 계산 (릴스 코드에서 추론) */
+    --m: calc(.5*(var(--n-stars) - 1)); /* 트리의 크기/반지름 관련 변수 */
+    --t: calc(0.3333*var(--n-stars)*0.1s); /* 애니메이션 지연 시간 변수 */
+
+    /* 별의 기본 스타일 */
+    position: absolute;
+    width: 2em; /* 별의 크기 */
+    height: 2em;
+    background: #fff;
+    
+    /* 별 모양 생성 (8각 별) */
+    clip-path: polygon(
+        50% 0%, 60% 35%, 100% 35%, 65% 60%, 80% 100%, 50% 75%, 20% 100%, 35% 60%, 0% 35%, 40% 35%
+    );
+
+    /* 별이 빛나는 효과 */
+    filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.7)) drop-shadow(0 0 10px #70e3ff);
+    
+    /* 3D 위치 변환 (원뿔/트리 형태 배치) */
+    transform: 
+        /* Y축 회전: 별들을 원형으로 배치 */
+        rotateY(calc(var(--i) * 360deg / var(--n-stars)))
+        /* Z축 이동: 원뿔의 반지름을 결정 (트리의 폭) */
+        translateZ(calc(var(--m) * 0.7vmin))
+        /* X축 회전: 별이 정면을 향하도록 조정 */
+        rotateX(90deg)
+        /* Y축 이동: 별을 위아래로 쌓아 트리 높이를 만듦 (i가 클수록 위로) */
+        translateY(calc(var(--i) * 0.7em - 10em))
+        /* 별 자체를 약간 회전시켜 모양을 다양하게 함 */
+        rotate(calc(var(--i) * 10deg));
+        
+    /* 애니메이션 설정 (릴스 코드와 유사) */
+    /* 개별 별의 애니메이션 지연 시간을 설정하여 트리가 층별로 회전하는 듯한 효과를 만듭니다. */
+    animation: roty 12s linear var(--t) infinite reverse;
+    animation-delay: calc(var(--i) * -0.1s); /* 별 인덱스에 따라 지연 시간 설정 */
+}
+
+
+/* =================================== */
+/* 3. 애니메이션 키프레임 정의 */
 /* =================================== */
 
 @keyframes roty {
