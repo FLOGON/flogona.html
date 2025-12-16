@@ -46,9 +46,13 @@ body{
   box-shadow:
     0 0 0.4vmin white,
     0 0 0.9vmin #cfffff;
+
+  /* stacking effect */
+  opacity:0;
   animation:
-    rise 4s ease-out forwards,
+    stack 0.6s ease-out forwards,
     twinkle 2.5s ease-in-out infinite;
+}
 }
 
 /* tree shape */
@@ -70,8 +74,24 @@ body{
   to{ transform: rotateY(360deg); }
 }
 
-@keyframes rise{
-  from{ opacity:0; filter:blur(2px); }
+@keyframes stack{
+  from{
+    opacity:0;
+    transform:
+      translateX(calc(cos(var(--angle)) * var(--spread)))
+      translateZ(calc(sin(var(--angle)) * var(--spread)))
+      translateY(2vmin);
+    filter:blur(3px);
+  }
+  to{
+    opacity:1;
+    transform:
+      translateX(calc(cos(var(--angle)) * var(--spread)))
+      translateZ(calc(sin(var(--angle)) * var(--spread)))
+      translateY(calc(-1 * var(--y)));
+    filter:blur(0);
+  }
+}
   to{ opacity:1; filter:blur(0); }
 }
 
@@ -93,9 +113,21 @@ body{
           const s = document.createElement('span');
           s.className = 'star';
           s.style.setProperty('--i', i);
-          s.style.animationDelay = (i * 0.015) + 's';
+          // stars appear layer by layer from bottom
+          const delay = Math.floor(i / 12) * 0.15;
+          s.style.animationDelay = delay + 's';
           tree.appendChild(s);
         }
+              // top star
+        const top = document.createElement('span');
+        top.className = 'star top-star';
+        top.style.setProperty('--i', N);
+        top.style.width = '1.2vmin';
+        top.style.height = '1.2vmin';
+        top.style.left = '50%';
+        top.style.bottom = '100%';
+        top.style.boxShadow = '0 0 1.2vmin #fff, 0 0 2.4vmin #ffffcc';
+        tree.appendChild(top);
       </script>
     </div>
   </div>
