@@ -1,0 +1,23 @@
+<head>
+    <style>
+        /* 제공된 CSS 코드를 여기에 붙여넣습니다 */
+        body {
+            place-content: center;
+            overflow-x: hidden;
+            margin: 0;
+            height: 100vh;
+            perspective: 35em;
+            background: #000014;
+        }
+
+        div {
+            transform-style: preserve-3d;
+        }
+
+        .a3d {
+            --m: calc(.5*(var(--n-stars) - 1));
+            --t: calc(0.3333*var(--n-stars)*0.1s);
+            animation: roty 12s linear var(--t) infinite reverse;
+        }
+    </style>
+</head>
