@@ -49,24 +49,18 @@ body{
 
   /* stacking effect */
   opacity:0;
+
+  /* CSS trigonometry 제거 → rotate + translate 방식 */
+  transform:
+    rotateY(var(--ry))
+    rotateZ(var(--rz))
+    translateX(var(--spread))
+    translateY(calc(-1 * var(--y)));
+
   animation:
     stack 0.6s ease-out forwards,
     twinkle 2.5s ease-in-out infinite;
 }
-}
-
-/* tree shape */
-.star{
-  --i: 0;
-  --h: calc(var(--i) / var(--n-stars));
-  --spread: calc((1 - var(--h)) * 16vmin);
-  --angle: calc(var(--i) * 137.5deg);
-  --y: calc(var(--h) * 55vmin);
-
-  transform:
-    translateX(calc(cos(var(--angle)) * var(--spread)))
-    translateZ(calc(sin(var(--angle)) * var(--spread)))
-    translateY(calc(-1 * var(--y)));
 }
 
 @keyframes spin{
@@ -78,11 +72,22 @@ body{
   from{
     opacity:0;
     transform:
-      translateX(calc(cos(var(--angle)) * var(--spread)))
-      translateZ(calc(sin(var(--angle)) * var(--spread)))
+      rotateY(var(--ry))
+      rotateZ(var(--rz))
+      translateX(var(--spread))
       translateY(2vmin);
     filter:blur(3px);
   }
+  to{
+    opacity:1;
+    transform:
+      rotateY(var(--ry))
+      rotateZ(var(--rz))
+      translateX(var(--spread))
+      translateY(calc(-1 * var(--y)));
+    filter:blur(0);
+  }
+}
   to{
     opacity:1;
     transform:
@@ -113,6 +118,11 @@ body{
           const s = document.createElement('span');
           s.className = 'star';
           s.style.setProperty('--i', i);
+          const h = i / N;
+          s.style.setProperty('--y', `${h * 55}vmin`);
+          s.style.setProperty('--spread', `${(1 - h) * 16}vmin`);
+          s.style.setProperty('--rz', `${i * 137.5}deg`);
+          s.style.setProperty('--ry', `${h * 40}deg`);
           // stars appear layer by layer from bottom
           const delay = Math.floor(i / 12) * 0.15;
           s.style.animationDelay = delay + 's';
