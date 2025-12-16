@@ -1,23 +1,49 @@
+<!DOCTYPE html>
+<html lang="ko">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3D 별 트리</title>
+    <link rel="stylesheet" href="style.css">
+    
     <style>
-        /* 제공된 CSS 코드를 여기에 붙여넣습니다 */
-        body {
-            place-content: center;
-            overflow-x: hidden;
-            margin: 0;
-            height: 100vh;
-            perspective: 35em;
-            background: #000014;
-        }
-
-        div {
-            transform-style: preserve-3d;
-        }
-
-        .a3d {
-            --m: calc(.5*(var(--n-stars) - 1));
-            --t: calc(0.3333*var(--n-stars)*0.1s);
-            animation: roty 12s linear var(--t) infinite reverse;
+        :root {
+            --n-stars: 30;
         }
     </style>
 </head>
+<body>
+    <div class="tree">
+        <div class="a3d" style="--i: 1"></div>
+        <div class="a3d" style="--i: 2"></div>
+        <div class="a3d" style="--i: 3"></div>
+        <div class="a3d" style="--i: 4"></div>
+        <div class="a3d" style="--i: 5"></div>
+        <div class="a3d" style="--i: 6"></div>
+        <div class="a3d" style="--i: 7"></div>
+        <div class="a3d" style="--i: 8"></div>
+        <div class="a3d" style="--i: 9"></div>
+        <div class="a3d" style="--i: 10"></div>
+        <div class="a3d" style="--i: 11"></div>
+        <div class="a3d" style="--i: 12"></div>
+        <div class="a3d" style="--i: 13"></div>
+        <div class="a3d" style="--i: 14"></div>
+        <div class="a3d" style="--i: 15"></div>
+        <div class="a3d" style="--i: 16"></div>
+        <div class="a3d" style="--i: 17"></div>
+        <div class="a3d" style="--i: 18"></div>
+        <div class="a3d" style="--i: 19"></div>
+        <div class="a3d" style="--i: 20"></div>
+        <div class="a3d" style="--i: 21"></div>
+        <div class="a3d" style="--i: 22"></div>
+        <div class="a3d" style="--i: 23"></div>
+        <div class="a3d" style="--i: 24"></div>
+        <div class="a3d" style="--i: 25"></div>
+        <div class="a3d" style="--i: 26"></div>
+        <div class="a3d" style="--i: 27"></div>
+        <div class="a3d" style="--i: 28"></div>
+        <div class="a3d" style="--i: 29"></div>
+        <div class="a3d" style="--i: 30"></div>
+    </div>
+</body>
+</html>
